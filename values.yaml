@@ -168,4 +168,10 @@ args: []
 watch: false
 
 # /benthos.yaml configuration
+localConfigFile:
+  enabled: false
+  configFilePath: ""
+
 config: |
+
+

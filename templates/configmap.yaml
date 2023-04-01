@@ -27,7 +27,13 @@ data:
           {{- end }}
         {{- end }}
       {{- end -}}
-    {{- if and .Values.config (ne .Values.streams.enabled true) }}
+    {{- if and .Values.localConfigFile.enabled (ne .Values.streams.enabled true) }}
+    {{- if .Values.localConfigFile.configFilePath }}
+    {{- (.Files.Get .Values.localConfigFile.configFilePath) | nindent 4 }}
+    {{- else }}
+    {{- fail "localConfigFile.configFilePath must be provided when localConfigFile.enabled is true" }}
+    {{- end }}
+    {{- else if and .Values.config (ne .Values.streams.enabled true) }}
     {{- tpl .Values.config . | nindent 4 }}
     {{- else if and .Values.streams.enabled .Values.streams.streamsConfigMap }}
     {{- else }}
